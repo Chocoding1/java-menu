@@ -22,20 +22,24 @@ public class MenuController {
 
     public void run() {
         outputView.printServiceStartNotice();
-        Coaches coaches = retryUntilSuccess(this::getCoaches);
-        getForbiddenMenu(coaches);
-    }
-
-    private void getForbiddenMenu(Coaches coaches) {
-        for (Coach coach : coaches.getCoaches()) {
-            String input = inputView.readForbiddenMenu(coach);
-            List<String> menus = MenuParser.parse(input);
-            coach.setForbiddenMenus(menus);
-        }
+        Coaches coaches = retryUntilSuccessSupplier(this::getCoaches);
+        setForbiddenMenu(coaches);
     }
 
     private Coaches getCoaches() {
         String input = inputView.readCoachName();
         return CoachParser.parse(input);
+    }
+
+    private void setForbiddenMenu(Coaches coaches) {
+        for (Coach coach : coaches.getCoaches()) {
+            retryUntilSuccessRunnable(() -> setForbiddenMenuPerCoach((coach)));;
+        }
+    }
+
+    private void setForbiddenMenuPerCoach(Coach coach) {
+        String input = inputView.readForbiddenMenu(coach);
+        List<String> menus = MenuParser.parse(input);
+        coach.setForbiddenMenus(menus);
     }
 }
