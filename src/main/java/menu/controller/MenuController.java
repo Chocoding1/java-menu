@@ -5,6 +5,7 @@ import static menu.exception.ExceptionHandler.*;
 import java.util.List;
 import menu.model.Coach;
 import menu.model.Coaches;
+import menu.service.MenuService;
 import menu.util.CoachParser;
 import menu.util.MenuParser;
 import menu.view.InputView;
@@ -14,16 +15,20 @@ public class MenuController {
 
     private final OutputView outputView;
     private final InputView inputView;
+    private final MenuService menuService;
 
-    public MenuController(OutputView outputView, InputView inputView) {
+    public MenuController(OutputView outputView, InputView inputView, MenuService menuService) {
         this.outputView = outputView;
         this.inputView = inputView;
+        this.menuService = menuService;
     }
 
     public void run() {
         outputView.printServiceStartNotice();
         Coaches coaches = retryUntilSuccessSupplier(this::getCoaches);
         setForbiddenMenu(coaches);
+        menuService.suggestMenus(coaches);
+        System.out.println(" ");
     }
 
     private Coaches getCoaches() {

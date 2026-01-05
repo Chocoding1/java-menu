@@ -25,6 +25,14 @@ public class Coach {
         this.forbiddenMenus = menus;
     }
 
+    public boolean canNotSuggest(String pickedMenu) {
+        return forbiddenMenus.contains(pickedMenu) || suggestedMenus.contains(pickedMenu);
+    }
+
+    public void logSuggestedMenu(String pickedMenu) {
+        suggestedMenus.add(pickedMenu);
+    }
+
     private void validateNameLength(String name) {
         if (name.length() < 2 || 4 < name.length()) {
             throw new IllegalArgumentException("[ERROR] 코치의 이름은 2글자 이상 4글자 이하여야 합니다.");

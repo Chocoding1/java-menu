@@ -1,19 +1,30 @@
 package menu.model;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Coaches {
 
     private final List<Coach> coaches;
+    public List<Category> suggestedCategories;
 
     public Coaches(List<Coach> coaches) {
         validateCoachesCount(coaches);
         this.coaches = Collections.unmodifiableList(coaches);
+        this.suggestedCategories = new ArrayList<>();
     }
 
     public List<Coach> getCoaches() {
         return coaches;
+    }
+
+    public boolean canNotSuggest(Category category) {
+        return Collections.frequency(suggestedCategories, category) >= 2;
+    }
+
+    public void logCategory(Category category) {
+        suggestedCategories.add(category);
     }
 
     private void validateCoachesCount(List<Coach> coaches) {
