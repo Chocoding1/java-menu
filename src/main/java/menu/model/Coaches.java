@@ -1,5 +1,6 @@
 package menu.model;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Coaches {
@@ -8,7 +9,7 @@ public class Coaches {
 
     public Coaches(List<Coach> coaches) {
         validateCoachesCount(coaches);
-        this.coaches = coaches;
+        this.coaches = Collections.unmodifiableList(coaches);
     }
 
     private void validateCoachesCount(List<Coach> coaches) {
