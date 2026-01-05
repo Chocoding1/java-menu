@@ -7,7 +7,7 @@ public class Coach {
 
     private final String name;
     private List<String> forbiddenMenus;
-    private List<String> suggestedMenus;
+    private final List<String> suggestedMenus;
 
     public Coach(String name) {
         validateName(name);
@@ -18,6 +18,10 @@ public class Coach {
 
     public String getName() {
         return name;
+    }
+
+    public List<String> getSuggestedMenus() {
+        return suggestedMenus;
     }
 
     public void setForbiddenMenus(List<String> menus) {

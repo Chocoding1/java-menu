@@ -28,7 +28,7 @@ public class MenuController {
         Coaches coaches = retryUntilSuccessSupplier(this::getCoaches);
         setForbiddenMenu(coaches);
         menuService.suggestMenus(coaches);
-        System.out.println(" ");
+        outputView.printSuggestedResult(coaches);
     }
 
     private Coaches getCoaches() {

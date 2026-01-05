@@ -24,6 +24,10 @@ public enum Category {
         return menus;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public static Category from(int categoryId) {
         for (Category category : values()) {
             if (category.categoryId == categoryId) {
