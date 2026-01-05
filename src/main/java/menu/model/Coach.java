@@ -10,7 +10,7 @@ public class Coach {
     private List<String> suggestedMenus;
 
     public Coach(String name) {
-        validateNameLength(name);
+        validateName(name);
         this.name = name;
         this.forbiddenMenus = new ArrayList<>();
         this.suggestedMenus = new ArrayList<>();
@@ -21,7 +21,7 @@ public class Coach {
     }
 
     public void setForbiddenMenus(List<String> menus) {
-        validateForbiddenMenuCount(menus);
+        validateForbiddenMenu(menus);
         this.forbiddenMenus = menus;
     }
 
@@ -33,9 +33,33 @@ public class Coach {
         suggestedMenus.add(pickedMenu);
     }
 
-    private void validateNameLength(String name) {
+    private void validateName(String name) {
+        validateNameBlank(name);
+        validateNameLength(name);
+    }
+
+    private static void validateNameLength(String name) {
         if (name.length() < 2 || 4 < name.length()) {
             throw new IllegalArgumentException("[ERROR] 코치의 이름은 2글자 이상 4글자 이하여야 합니다.");
+        }
+    }
+
+    private static void validateNameBlank(String name) {
+        if (name.isBlank()) {
+            throw new IllegalArgumentException("[ERROR] 코치의 이름은 공백일 수 없습니다.");
+        }
+    }
+
+    private void validateForbiddenMenu(List<String> menus) {
+        validateMenuBlank(menus);
+        validateForbiddenMenuCount(menus);
+    }
+
+    private void validateMenuBlank(List<String> menus) {
+        for (String menu : menus) {
+            if (menu.isBlank()) {
+                throw new IllegalArgumentException("[ERROR] 메뉴 이름은 공백일 수 없습니다.");
+            }
         }
     }
 

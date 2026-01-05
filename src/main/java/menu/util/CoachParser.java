@@ -13,6 +13,7 @@ public class CoachParser {
 
     public static Coaches parse(String input) {
         List<Coach> coaches = Arrays.stream(input.split(COMMA))
+                .map(String::strip)
                 .map(Coach::new)
                 .collect(Collectors.toList());
 
