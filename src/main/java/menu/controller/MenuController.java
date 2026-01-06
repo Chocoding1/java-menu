@@ -38,7 +38,7 @@ public class MenuController {
 
     private void setForbiddenMenu(Coaches coaches) {
         for (Coach coach : coaches.getCoaches()) {
-            retryUntilSuccessRunnable(() -> setForbiddenMenuPerCoach((coach)));;
+            retryUntilSuccessRunnable(() -> setForbiddenMenuPerCoach((coach)));
         }
     }
 

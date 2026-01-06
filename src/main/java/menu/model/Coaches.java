@@ -1,10 +1,16 @@
 package menu.model;
 
+import static menu.exception.ErrorMessage.ERROR_COACH_COUNT;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Coaches {
+
+    private static final int MIN_COACH_COUNT = 2;
+    private static final int MAX_COACH_COUNT = 5;
+    private static final int MAX_SAME_CATEGORY_COUNT_PER_WEEK = 2;
 
     private final List<Coach> coaches;
     public List<Category> suggestedCategories;
@@ -20,7 +26,7 @@ public class Coaches {
     }
 
     public boolean canNotSuggest(Category category) {
-        return Collections.frequency(suggestedCategories, category) >= 2;
+        return Collections.frequency(suggestedCategories, category) >= MAX_SAME_CATEGORY_COUNT_PER_WEEK;
     }
 
     public void logCategory(Category category) {
@@ -28,8 +34,8 @@ public class Coaches {
     }
 
     private void validateCoachesCount(List<Coach> coaches) {
-        if (coaches.size() < 2 || 5 < coaches.size()) {
-            throw new IllegalArgumentException("[ERROR] 코치는 2명에서 5명까지만 입력할 수 있습니다.");
+        if (coaches.size() < MIN_COACH_COUNT || MAX_COACH_COUNT < coaches.size()) {
+            throw new IllegalArgumentException(ERROR_COACH_COUNT.getMessage());
         }
     }
 }

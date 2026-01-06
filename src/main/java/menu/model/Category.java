@@ -1,5 +1,7 @@
 package menu.model;
 
+import static menu.exception.ErrorMessage.ERROR_CATEGORY_NOT_FOUND;
+
 import java.util.List;
 
 public enum Category {
@@ -34,6 +36,6 @@ public enum Category {
                 return category;
             }
         }
-        throw new IllegalArgumentException("[ERROR] 존재하지 않는 카테코리입니다.");
+        throw new IllegalArgumentException(ERROR_CATEGORY_NOT_FOUND.getMessage());
     }
 }

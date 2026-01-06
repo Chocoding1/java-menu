@@ -1,9 +1,18 @@
 package menu.model;
 
+import static menu.exception.ErrorMessage.ERROR_COACH_NAME_BLANK;
+import static menu.exception.ErrorMessage.ERROR_COACH_NAME_LENGTH;
+import static menu.exception.ErrorMessage.ERROR_FORBIDDEN_MENU_COUNT;
+import static menu.exception.ErrorMessage.ERROR_MENU_NAME_BLANK;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Coach {
+
+    private static final int MIN_NAME_LENGTH = 2;
+    private static final int MAX_NAME_LENGTH = 4;
+    private static final int MAX_FORBIDDEN_MENU_COUNT = 2;
 
     private final String name;
     private List<String> forbiddenMenus;
@@ -43,14 +52,14 @@ public class Coach {
     }
 
     private static void validateNameLength(String name) {
-        if (name.length() < 2 || 4 < name.length()) {
-            throw new IllegalArgumentException("[ERROR] 코치의 이름은 2글자 이상 4글자 이하여야 합니다.");
+        if (name.length() < MIN_NAME_LENGTH || MAX_NAME_LENGTH < name.length()) {
+            throw new IllegalArgumentException(ERROR_COACH_NAME_LENGTH.getMessage());
         }
     }
 
     private static void validateNameBlank(String name) {
         if (name.isBlank()) {
-            throw new IllegalArgumentException("[ERROR] 코치의 이름은 공백일 수 없습니다.");
+            throw new IllegalArgumentException(ERROR_COACH_NAME_BLANK.getMessage());
         }
     }
 
@@ -62,14 +71,14 @@ public class Coach {
     private void validateMenuBlank(List<String> menus) {
         for (String menu : menus) {
             if (menu.isBlank()) {
-                throw new IllegalArgumentException("[ERROR] 메뉴 이름은 공백일 수 없습니다.");
+                throw new IllegalArgumentException(ERROR_MENU_NAME_BLANK.getMessage());
             }
         }
     }
 
     private void validateForbiddenMenuCount(List<String> menus) {
-        if (menus.size() > 2) {
-            throw new IllegalArgumentException("[ERROR] 못 먹는 메뉴는 2개까지만 입력할 수 있습니다.");
+        if (menus.size() > MAX_FORBIDDEN_MENU_COUNT) {
+            throw new IllegalArgumentException(ERROR_FORBIDDEN_MENU_COUNT.getMessage());
         }
     }
 }
