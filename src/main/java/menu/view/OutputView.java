@@ -31,9 +31,7 @@ public class OutputView {
     }
 
     private void addCategory(StringBuilder sb, Coaches coaches) {
-        String categories = coaches.suggestedCategories.stream()
-                .map(Category::getName)
-                .collect(Collectors.joining(" | "));
+        String categories = String.join(" | ", coaches.getSuggestedCategoriesName());
 
         sb.append("[ 카테고리 | ")
                 .append(categories)

@@ -33,12 +33,12 @@ public class Coach {
         return suggestedMenus;
     }
 
-    public void setForbiddenMenus(List<String> menus) {
+    public void logForbiddenMenus(List<String> menus) {
         validateForbiddenMenu(menus);
         this.forbiddenMenus = menus;
     }
 
-    public boolean canNotSuggest(String pickedMenu) {
+    public boolean isUnavailableMenu(String pickedMenu) {
         return forbiddenMenus.contains(pickedMenu) || suggestedMenus.contains(pickedMenu);
     }
 

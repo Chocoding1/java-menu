@@ -5,6 +5,7 @@ import static menu.exception.ErrorMessage.ERROR_COACH_COUNT;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Coaches {
 
@@ -13,7 +14,7 @@ public class Coaches {
     private static final int MAX_SAME_CATEGORY_COUNT_PER_WEEK = 2;
 
     private final List<Coach> coaches;
-    public List<Category> suggestedCategories;
+    private List<Category> suggestedCategories;
 
     public Coaches(List<Coach> coaches) {
         validateCoachesCount(coaches);
@@ -21,11 +22,17 @@ public class Coaches {
         this.suggestedCategories = new ArrayList<>();
     }
 
+    public List<String> getSuggestedCategoriesName() {
+        return suggestedCategories.stream()
+                .map(Category::getName)
+                .collect(Collectors.toList());
+    }
+
     public List<Coach> getCoaches() {
         return coaches;
     }
 
-    public boolean canNotSuggest(Category category) {
+    public boolean isCategoryLimitExceeded(Category category) {
         return Collections.frequency(suggestedCategories, category) >= MAX_SAME_CATEGORY_COUNT_PER_WEEK;
     }
 

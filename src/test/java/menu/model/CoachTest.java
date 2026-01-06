@@ -47,25 +47,25 @@ class CoachTest {
 
     @Test
     @DisplayName("못 먹는 메뉴 정상 등록")
-    void setForbiddenMenus_success() {
+    void logForbiddenMenus_success() {
         //given
         Coach coach = new Coach("제임스");
         List<String> forbiddenMenus = List.of("스시", "돈까스");
 
         //when & then
-        Assertions.assertThatCode(() -> coach.setForbiddenMenus(forbiddenMenus))
+        Assertions.assertThatCode(() -> coach.logForbiddenMenus(forbiddenMenus))
                 .doesNotThrowAnyException();
     }
 
     @Test
     @DisplayName("메뉴 이름이 공백일 경우 못 먹는 메뉴 등록 시 예외 발생")
-    void setForbiddenMenus_fail_when_menuName_is_blank() {
+    void logForbiddenMenus_fail_when_menuName_is_blank() {
         //given
         Coach coach = new Coach("제임스");
         List<String> forbiddenMenus = List.of("", " ");
 
         //when
-        assertThatThrownBy(() -> coach.setForbiddenMenus(forbiddenMenus))
+        assertThatThrownBy(() -> coach.logForbiddenMenus(forbiddenMenus))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(ERROR_MENU_NAME_BLANK.getMessage());
     }
@@ -78,7 +78,7 @@ class CoachTest {
         List<String> forbiddenMenus = List.of("스시", "우동", "돈까스");
 
         //when
-        assertThatThrownBy(() -> coach.setForbiddenMenus(forbiddenMenus))
+        assertThatThrownBy(() -> coach.logForbiddenMenus(forbiddenMenus))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(ERROR_FORBIDDEN_MENU_COUNT.getMessage());
     }

@@ -19,7 +19,7 @@ public class MenuService {
         Category category;
         do {
             category = Category.from(Randoms.pickNumberInRange(1, 5));
-        } while (coaches.canNotSuggest(category));
+        } while (coaches.isCategoryLimitExceeded(category));
 
         coaches.logCategory(category);
         return category;
@@ -36,7 +36,7 @@ public class MenuService {
         String pickedMenu;
         do {
             pickedMenu = Randoms.shuffle(candidateMenus).get(0);
-        } while (coach.canNotSuggest(pickedMenu));
+        } while (coach.isUnavailableMenu(pickedMenu));
         coach.logSuggestedMenu(pickedMenu);
     }
 }
